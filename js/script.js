@@ -124,7 +124,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const animateOnScroll = () => {
         const elements = document.querySelectorAll(
             '.education-item, .achievement-card, .experience-item, .portfolio-item, ' +
-            '.about-text, .coding-profiles, .skills-container, .contact-info, .contact-form'
+            '.about-text, .coding-profiles, .skills-container, .contact-info, .contact-form, ' +
+            '.certificate-card'
         );
         
         elements.forEach(element => {
