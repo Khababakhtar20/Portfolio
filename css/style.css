@@ -271,6 +271,7 @@ section:nth-child(even) {
 .hero-image {
     flex: 1;
     text-align: center;
+    position: relative;
 }
 
 .hero-image img {
@@ -278,7 +279,114 @@ section:nth-child(even) {
     width: 100%;
     border-radius: 50%;
     border: 8px solid white;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    z-index: 2;
+    filter: brightness(1.02) contrast(1.05) saturate(1.05);
+    animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+.hero-image::before {
+    content: '';
+    position: absolute;
+    width: calc(100% - 40px);
+    height: calc(100% - 40px);
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--hover-color) 100%);
+    opacity: 0.2;
+    z-index: 1;
+    transition: all 0.5s ease;
+}
+
+.hero-image:hover img {
+    transform: scale(1.03);
+    box-shadow: 0 20px 40px rgba(var(--primary-color-rgb), 0.3);
+    border-color: rgba(255, 255, 255, 0.9);
+    animation: none;
+}
+
+.hero-image:hover::before {
+    opacity: 0.4;
+    width: calc(100% - 30px);
+    height: calc(100% - 30px);
+    top: 15px;
+    animation: pulse-border 2s ease-out infinite;
+}
+
+@keyframes pulse-border {
+    0% {
+        opacity: 0.4;
+        transform: translateX(-50%) scale(1);
+    }
+    50% {
+        opacity: 0.6;
+        transform: translateX(-50%) scale(1.02);
+    }
+    100% {
+        opacity: 0.4;
+        transform: translateX(-50%) scale(1);
+    }
+}
+
+/* Make sure the dark theme has appropriate styling */
+.theme-dark .hero-image img {
+    border-color: var(--secondary-color);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+}
+
+/* Responsive adjustments for the hero image */
+@media (max-width: 576px) {
+    .hero-image img {
+        max-width: 300px;
+        border-width: 6px;
+    }
+    
+    .hero-image::before {
+        width: calc(100% - 30px);
+        height: calc(100% - 30px);
+        top: 15px;
+    }
+    
+    .hero-image::after {
+        width: calc(100% - 50px);
+        height: calc(100% - 50px);
+        top: 25px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-image img {
+        max-width: 250px;
+        border-width: 5px;
+    }
+    
+    .hero-image::before {
+        width: calc(100% - 25px);
+        height: calc(100% - 25px);
+        top: 12px;
+    }
+    
+    .hero-image::after {
+        width: calc(100% - 40px);
+        height: calc(100% - 40px);
+        top: 20px;
+    }
 }
 
 /* ===== ABOUT SECTION STYLING ===== */
@@ -537,6 +645,7 @@ section:nth-child(even) {
 
 .timeline-content {
     padding: 25px;
+    width: 100%;
 }
 
 .role {
@@ -544,6 +653,8 @@ section:nth-child(even) {
     font-weight: 700;
     color: var(--dark-text);
     margin-bottom: 5px;
+    padding-right: 5px;
+    padding-left: 5px;
 }
 
 .company {
@@ -551,6 +662,8 @@ section:nth-child(even) {
     font-weight: 600;
     color: var(--primary-color);
     margin-bottom: 5px;
+    padding-right: 5px;
+    padding-left: 5px;
 }
 
 .period {
@@ -558,12 +671,21 @@ section:nth-child(even) {
     font-size: 14px;
     margin-bottom: 20px;
     display: block;
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
+.experience-description {
+    padding: 10px 5px;
 }
 
 .experience-description p {
     color: var(--text-color);
     line-height: 1.7;
     margin-bottom: 20px;
+    text-align: justify;
+    text-justify: inter-word;
+    padding: 0 5px;
 }
 
 .skills-tags {
@@ -763,7 +885,7 @@ section:nth-child(even) {
 
 .technical-skills {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 30px;
     max-width: 1100px;
     margin: 0 auto;
@@ -1032,7 +1154,7 @@ section:nth-child(even) {
     }
 
     .technical-skills {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(3, 1fr);
     }
 }
 
@@ -1097,7 +1219,7 @@ section:nth-child(even) {
     }
     
     .technical-skills {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
@@ -1381,6 +1503,7 @@ section:nth-child(even) {
 
 .theme-dark .hero-image img {
     border-color: var(--secondary-color);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
 }
 
 /* ===== RESPONSIVE ADDITIONS ===== */
@@ -1929,7 +2052,7 @@ section:nth-child(even) {
     width: 65px;
     height: 65px;
     border-radius: 50%;
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--hover-color) 100%);
+    background: linear-gradient(135deg, var(--primary-color) 20%, var(--hover-color) 100%);
     color: white;
     display: flex;
     align-items: center;
@@ -2121,4 +2244,181 @@ section:nth-child(even) {
 .theme-midnight .skill-tag,
 .theme-neon .skill-tag {
     background-color: rgba(108, 99, 255, 0.2);
+}
+
+/* Animation for project images */
+.animated-image {
+    transition: transform 0.8s ease, filter 1s ease;
+    transform-origin: center;
+}
+
+.animated-image:hover {
+    transform: scale(1.05) rotate(2deg);
+    filter: brightness(1.1) contrast(1.1);
+    animation: pulse-glow 3s infinite alternate;
+}
+
+@keyframes pulse-glow {
+    0% {
+        filter: brightness(1) contrast(1);
+        transform: scale(1.05) rotate(2deg);
+    }
+    50% {
+        filter: brightness(1.2) contrast(1.1) saturate(1.1);
+        transform: scale(1.08) rotate(0deg);
+    }
+    100% {
+        filter: brightness(1.1) contrast(1.05);
+        transform: scale(1.05) rotate(-2deg);
+    }
+}
+
+/* Enhanced animation for MediMate project */
+.project-card:nth-child(2) .animated-image {
+    transition: transform 1s ease, filter 1.2s ease;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.project-card:nth-child(2) .animated-image:hover {
+    transform: perspective(800px) rotateY(10deg);
+    filter: brightness(1.1) saturate(1.2);
+    box-shadow: -10px 10px 30px rgba(var(--primary-color-rgb), 0.3), 
+                10px 10px 30px rgba(0, 150, 255, 0.3);
+    animation: medical-pulse 4s infinite;
+}
+
+@keyframes medical-pulse {
+    0% {
+        box-shadow: 0 0 15px rgba(var(--primary-color-rgb), 0.5),
+                    0 0 30px rgba(0, 150, 255, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 25px rgba(var(--primary-color-rgb), 0.7),
+                    0 0 40px rgba(0, 150, 255, 0.5);
+    }
+    100% {
+        box-shadow: 0 0 15px rgba(var(--primary-color-rgb), 0.5),
+                    0 0 30px rgba(0, 150, 255, 0.3);
+    }
+}
+
+/* Enhanced animation for Chainsync project */
+.supply-chain-image {
+    transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+}
+
+.supply-chain-image::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.2) 50%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    z-index: 1;
+    animation: dataflow 3s infinite;
+    animation-play-state: paused;
+}
+
+.supply-chain-image:hover {
+    transform: scale(1.05);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2), 
+                0 0 30px rgba(var(--primary-color-rgb), 0.4);
+}
+
+.supply-chain-image:hover::before {
+    animation-play-state: running;
+}
+
+.project-card:nth-child(3):hover .project-content h3 {
+    color: var(--primary-color);
+    transition: color 0.3s ease;
+}
+
+@keyframes dataflow {
+    0% {
+        left: -100%;
+    }
+    50%, 100% {
+        left: 100%;
+    }
+}
+
+/* Center the Generative AI Certificate */
+.certificates-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+    gap: 30px;
+    margin-top: 50px;
+}
+
+/* Target the fifth certificate (Generative AI) for special styling */
+.certificates-container > div:nth-child(5) {
+    grid-column: 1 / -1; /* Span across all columns */
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    transform: scale(1.02);
+    box-shadow: 0 15px 30px var(--shadow-color);
+    border-left-width: 6px;
+    position: relative;
+}
+
+.certificates-container > div:nth-child(5)::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(45deg, 
+                rgba(var(--primary-color-rgb), 0.05) 0%,
+                rgba(255, 255, 255, 0) 100%);
+    border-radius: 16px;
+    z-index: 0;
+}
+
+.certificates-container > div:nth-child(5) .certificate-icon {
+    background: linear-gradient(135deg, var(--primary-color) 20%, var(--hover-color) 100%);
+}
+
+.hero-image::after {
+    content: '';
+    position: absolute;
+    width: calc(100% - 60px);
+    height: calc(100% - 60px);
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%);
+    z-index: 3;
+    pointer-events: none;
+    opacity: 0.3;
+    transition: all 0.5s ease;
+}
+
+.hero-image:hover::after {
+    opacity: 0.5;
+    width: calc(100% - 50px);
+    height: calc(100% - 50px);
+    top: 25px;
+}
+
+.align-text {
+    text-align: justify;
+    text-justify: inter-word;
+    margin-bottom: 20px;
+    line-height: 1.7;
+    padding: 5px;
+    hyphens: auto;
 } 
